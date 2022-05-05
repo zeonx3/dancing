@@ -11,6 +11,7 @@
     <h1>Register Date</h1>
     @endif
 
+
     @if(isset($schedule))
 
     <form method="post" action="{{route('schedule.update', $schedule)}}">
