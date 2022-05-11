@@ -16,6 +16,7 @@
             <th>Dancer</th>
             <th>Date</th>
             <th>Hour</th>
+            <th>Mail</th>
             <th>Status</th>
             <th></th>
         </thead>
@@ -24,16 +25,17 @@
 
             <tr>
                 <td>{{ $schedule->Dancer }}</td>
-                <td>{{ $schedule->Date }}</td>
-                <td>{{ $schedule->Hour }}</td>
+                <td>{{ (new DateTime($schedule->Date))->format('Y-m-d') }}</td>
+                <td>{{ $schedule->hor_name }}</td>
+                <td>{{ $schedule->Mail }}</td>
                 <td>{{ $schedule->Status == 1 ? 'Active' : 'Inactive'}}</td>
                 <td>
-                    <a href="{{ route('schedule.edit', $schedule->id ) }}" class="btn btn-warning">Editar</a>
+                    <a href="{{ route('schedule.edit', $schedule->id ) }}" class="btn btn-warning">Edit</a>
 
                     <form action="{{ route('schedule.destroy', $schedule) }}" method="post" class="d-inline">
                         @method('DELETE')
                         @csrf
-                        <button type="submit" class="btn btn-danger" onclick = "return confirm('Are you sure you want to delete the Date?')">Eliminar</button>
+                        <button type="submit" class="btn btn-danger" onclick = "return confirm('Are you sure you want to delete the Date?')">Delete</button>
                     </form>
                     </td>
             </tr>

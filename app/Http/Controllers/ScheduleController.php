@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\schedule;
+use App\Models\hour;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use View;
 
@@ -16,9 +18,15 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        $schedule = schedule::paginate(5);
 
-        return view('schedule.index')->with('schedules', $schedule);
+        $sql = DB::table('schedules')
+            ->join( 'hours', 'schedules.id_hours', '=' , 'hours.id'  )
+            ->select('schedules.*', 'hours.hor_name')
+            ->get();
+
+        $schedule = DB::select($sql);
+
+        return view('schedule.index')->with($schedule);
     }
 
     /**
@@ -28,7 +36,8 @@ class ScheduleController extends Controller
      */
     public function create()
     {
-        return view('schedule.form');
+        $hours = hour::all();
+        return view('schedule.form', compact('hours'));
     }
 
     /**
@@ -41,11 +50,12 @@ class ScheduleController extends Controller
     {
         $request->validate([
             'Dancer'=> 'required|max:50',
+            'Mail'=> 'required|max:50',
             'Date' => 'required',
-            'Hour'=> 'required'
+            'id_hours'=> 'required'
         ]);
 
-        $schedule = Schedule::create($request->only('Dancer','Date','Hour'));
+        $schedule = Schedule::create($request->only('Dancer','Mail','Date','id_hours'));
 
         Session::flash('mensaje', 'Schedule saved');
         return redirect()->route('schedule.index');
@@ -71,7 +81,8 @@ class ScheduleController extends Controller
      */
     public function edit(schedule $schedule)
     {
-        return view('schedule.form')
+        $hours = hour::all();
+        return view('schedule.form', compact('hours'))
         ->with('schedule',$schedule);
     }
 
@@ -86,13 +97,16 @@ class ScheduleController extends Controller
     {
         $request->validate([
             'Dancer'=> 'required|max:50',
+            'Mail'=> 'required|max:50',
             'Date' => 'required',
-            'Hour'=> 'required'
+            'id_hours'=> 'required'
         ]);
 
         $schedule ->Dancer = $request['Dancer'];
+        $schedule ->Mail = $request['Mail'];
         $schedule ->Date  = $request['Date'];
-        $schedule ->Hour = $request['Hour'];
+        $schedule ->id_hours = $request['id_hours'];
+
         $schedule->save();
 
         Session::flash('mensaje', 'Schedule updated');
