@@ -21,8 +21,7 @@
             <th></th>
         </thead>
         <tbody>
-            @forelse ($schedules as $schedule)
-
+            @foreach ($schedules as $schedule)
             <tr>
                 <td>{{ $schedule->Dancer }}</td>
                 <td>{{ (new DateTime($schedule->Date))->format('Y-m-d') }}</td>
@@ -37,14 +36,12 @@
                         @csrf
                         <button type="submit" class="btn btn-danger" onclick = "return confirm('Are you sure you want to delete the Date?')">Delete</button>
                     </form>
-                    </td>
+                </td>
             </tr>
-            @empty
 
-            @endforelse
+            @endforeach
         </tbody>
     </table>
-    {{ $schedules->links() }}
 
 </div>
 

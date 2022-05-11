@@ -16,17 +16,13 @@ class ScheduleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(){
 
-        $sql = DB::table('schedules')
-            ->join( 'hours', 'schedules.id_hours', '=' , 'hours.id'  )
-            ->select('schedules.*', 'hours.hor_name')
-            ->get();
+        $schedules =  schedule::select('schedules.*','hours.hor_name')
+                ->join('hours', 'schedules.id_hours' ,'=', 'hours.id'  )
+                ->get();
 
-        $schedule = DB::select($sql);
-
-        return view('schedule.index')->with($schedule);
+        return view('schedule.index', compact('schedules'));
     }
 
     /**
@@ -54,6 +50,31 @@ class ScheduleController extends Controller
             'Date' => 'required',
             'id_hours'=> 'required'
         ]);
+
+        $validateDancer = schedule::select('schedules.*')
+                            ->Where('Dancer', '=', $request['Dancer'], 'and',
+                                    'Date', '=', $request['Date'],'and',
+                                    'Mail', '=' ,$request['Mail'])
+                            ->get();
+
+        $validateDate = schedule::select('schedules.*')
+                        ->Where('Date', '=', $request['Date'], 'and',
+                                'id_hours', '=', $request['id_hours'])
+                        ->get();
+
+        if($validateDate != '')
+        {
+            Session::flash('mensaje', 'Try selecting another hour');
+            return redirect()->route('schedule.index');
+        }
+
+        if($validateDancer != '')
+        {
+            Session::flash('mensaje', 'Dancer already has one date');
+            return redirect()->route('schedule.index');
+
+        }
+
 
         $schedule = Schedule::create($request->only('Dancer','Mail','Date','id_hours'));
 
