@@ -11,7 +11,7 @@
  Target Server Version : 100421
  File Encoding         : 65001
 
- Date: 11/05/2022 15:35:16
+ Date: 11/05/2022 20:00:40
 */
 
 SET NAMES utf8mb4;
@@ -69,22 +69,16 @@ CREATE TABLE `hours`  (
 -- ----------------------------
 -- Records of hours
 -- ----------------------------
-INSERT INTO `hours` VALUES (2, '6:00', NULL, NULL);
-INSERT INTO `hours` VALUES (3, '7:00', NULL, NULL);
-INSERT INTO `hours` VALUES (4, '8:00', NULL, NULL);
-INSERT INTO `hours` VALUES (5, '9:00', NULL, NULL);
-INSERT INTO `hours` VALUES (6, '10:00', NULL, NULL);
-INSERT INTO `hours` VALUES (7, '11:00', NULL, NULL);
-INSERT INTO `hours` VALUES (8, '12:00', NULL, NULL);
-INSERT INTO `hours` VALUES (9, '13:00', NULL, NULL);
-INSERT INTO `hours` VALUES (10, '14:00', NULL, NULL);
-INSERT INTO `hours` VALUES (11, '15:00', NULL, NULL);
-INSERT INTO `hours` VALUES (12, '16:00', NULL, NULL);
-INSERT INTO `hours` VALUES (13, '17:00', NULL, NULL);
-INSERT INTO `hours` VALUES (14, '18:00', NULL, NULL);
-INSERT INTO `hours` VALUES (15, '19:00', NULL, NULL);
-INSERT INTO `hours` VALUES (16, '20:00', NULL, NULL);
-INSERT INTO `hours` VALUES (17, '21:00', NULL, NULL);
+INSERT INTO `hours` VALUES (2, '09:00', NULL, NULL);
+INSERT INTO `hours` VALUES (3, '10:00', NULL, NULL);
+INSERT INTO `hours` VALUES (4, '11:00', NULL, NULL);
+INSERT INTO `hours` VALUES (5, '12:00', NULL, NULL);
+INSERT INTO `hours` VALUES (6, '13:00', NULL, NULL);
+INSERT INTO `hours` VALUES (7, '14:00', NULL, NULL);
+INSERT INTO `hours` VALUES (8, '15:00', NULL, NULL);
+INSERT INTO `hours` VALUES (9, '16:00', NULL, NULL);
+INSERT INTO `hours` VALUES (10, '17:00', NULL, NULL);
+INSERT INTO `hours` VALUES (11, '18:00', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for migrations
@@ -160,7 +154,7 @@ CREATE TABLE `schedules`  (
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of schedules
